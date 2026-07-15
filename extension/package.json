@@ -1,0 +1,74 @@
+{
+  "name": "clipsend",
+  "displayName": "ClipSend",
+  "description": "One-way clipboard sync system",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "clipsend.start",
+        "title": "ClipSend: Open Panel"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "clipsend-explorer",
+          "title": "ClipSend",
+          "icon": "$(broadcast)"
+        }
+      ]
+    },
+    "views": {
+      "clipsend-explorer": [
+        {
+          "type": "webview",
+          "id": "clipsend.panel",
+          "name": "ClipSend",
+          "icon": "$(broadcast)",
+          "contextualTitle": "ClipSend"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "ClipSend",
+      "properties": {
+        "clipsend.serverUrl": {
+          "type": "string",
+          "default": "http://localhost:8081",
+          "description": "The URL of the ClipSend Go Server"
+        },
+        "clipsend.downloadFolder": {
+          "type": "string",
+          "default": "one-way-downloads",
+          "description": "Folder name in the current workspace to save downloaded files"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint"
+  },
+  "devDependencies": {
+    "@types/node": "20.x",
+    "@types/uuid": "^10.0.0",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "uuid": "^10.0.0"
+  }
+}
