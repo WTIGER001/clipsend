@@ -1,0 +1,3 @@
+clipsend.bauerstuff.com {
+    reverse_proxy localhost:8081
+}

@@ -1,0 +1,31 @@
+services:
+  go-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      DB_FILE: /data/clipsend_db.json
+      DATA_DIR: /data/clipsend_data
+    ports:
+      - "8081:8081"
+    volumes:
+      - clipsend_data:/data
+
+  caddy:
+    image: caddy:2-alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./server/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - go-server
+
+volumes:
+  clipsend_data:
+  caddy_data:
+  caddy_config:

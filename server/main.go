@@ -41,6 +41,15 @@ var (
 	dataDir = "clipsend_data"
 )
 
+func init() {
+	if envDbFile := os.Getenv("DB_FILE"); envDbFile != "" {
+		dbFile = envDbFile
+	}
+	if envDataDir := os.Getenv("DATA_DIR"); envDataDir != "" {
+		dataDir = envDataDir
+	}
+}
+
 func loadDB() {
 	dbLock.Lock()
 	defer dbLock.Unlock()
